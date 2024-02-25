@@ -1,6 +1,22 @@
 import React from "react";
 import styled from "@emotion/styled";
 import { Typography, Button, TextField, Divider } from "@mui/material";
+import React from "react";
+import styled from "@emotion/styled";
+import { Typography } from "@mui/material";
+import { InputForm } from "./components/InputForm";
+import { List } from "./components/List";
+
+const StyledContainer = styled.div`
+  width: 327px;
+  margin: 24px auto;
+`;
+
+export type TodoList = {
+  id: string;
+  content: string;
+  isCompleted: boolean;
+};
 
 const StyledContainer = styled.div`
   width: 327px;
@@ -78,114 +94,106 @@ function App() {
     setTodoList(updateList);
   };
 
-  return (
-    <StyledContainer>
-      <Typography variant="h1" sx={{ fontSize: "32px" }}>
-        今日やること
-      </Typography>
-      <StyledForm onSubmit={(e) => addTodoItem(e)}>
-        <TextField
-          id="add-todo-item"
-          type="text"
-          placeholder="タスクを入力"
-          value={content}
-          onChange={(e) => setContent(e.target.value)}
-          variant="outlined"
-          size="small"
-          sx={{
-            width: "250px",
-          }}
-        />
-        <Button
-          type="submit"
-          disabled={!content}
-          variant="contained"
-          size="small"
-          sx={{
-            minWidth: "57px",
-            height: "32px",
-            backgroundColor: `${!content ? "#C1C1C1" : "#008CFF"}`,
-            boxShadow: "none",
-            "&:hover": {
+  function App() {
+    return (
+      <StyledContainer>
+        <Typography variant="h1" sx={{ fontSize: "32px" }}>
+          今日やること
+        </Typography>
+        <StyledForm onSubmit={(e) => addTodoItem(e)}>
+          <TextField
+            id="add-todo-item"
+            type="text"
+            placeholder="タスクを入力"
+            value={content}
+            onChange={(e) => setContent(e.target.value)}
+            variant="outlined"
+            size="small"
+            sx={{
+              width: "250px",
+            }}
+          />
+          <Button
+            type="submit"
+            disabled={!content}
+            variant="contained"
+            size="small"
+            sx={{
+              minWidth: "57px",
+              height: "32px",
               backgroundColor: `${!content ? "#C1C1C1" : "#008CFF"}`,
               boxShadow: "none",
-            },
-          }}
-        >
-          追加
-        </Button>
-      </StyledForm>
-      <StyledList>
-        {todoList.map((item) => (
-          <>
-            <StyledListItem key={item.id}>
-              <Typography
-                sx={{
-                  textDecoration: () =>
-                    item.isCompleted ? "line-through" : "none",
-                }}
-              >
-                {item.content}
-              </Typography>
-              <StyledButtonWrapper>
-                <Button
-                  type="button"
-                  onClick={() => deleteTodoItem(item.id)}
-                  variant="contained"
-                  size="small"
+              "&:hover": {
+                backgroundColor: `${!content ? "#C1C1C1" : "#008CFF"}`,
+                boxShadow: "none",
+              },
+            }}
+          >
+            追加
+          </Button>
+        </StyledForm>
+        <StyledList>
+          {todoList.map((item) => (
+            <>
+              <StyledListItem key={item.id}>
+                <Typography
                   sx={{
-                    minWidth: "57px",
-                    height: "32px",
-                    backgroundColor: "#FF3700",
-                    boxShadow: "none",
-                    "&:hover": {
-                      backgroundColor: "#FF3700",
-                      boxShadow: "none",
-                    },
+                    textDecoration: () =>
+                      item.isCompleted ? "line-through" : "none",
                   }}
                 >
-                  削除
-                </Button>
-                <Button
-                  type="button"
-                  onClick={() => completedTodoItem(item.id)}
-                  variant="contained"
-                  size="small"
-                  sx={{
-                    minWidth: "57px",
-                    height: "32px",
-                    backgroundColor: `${
-                      item.isCompleted ? "#C1C1C1" : "#008CFF"
-                    }`,
-                    boxShadow: "none",
-                    "&:hover": {
+                  {item.content}
+                </Typography>
+                <StyledButtonWrapper>
+                  <Button
+                    type="button"
+                    onClick={() => deleteTodoItem(item.id)}
+                    variant="contained"
+                    size="small"
+                    sx={{
+                      minWidth: "57px",
+                      height: "32px",
+                      backgroundColor: "#FF3700",
+                      boxShadow: "none",
+                      "&:hover": {
+                        backgroundColor: "#FF3700",
+                        boxShadow: "none",
+                      },
+                    }}
+                  >
+                    削除
+                  </Button>
+                  <Button
+                    type="button"
+                    onClick={() => completedTodoItem(item.id)}
+                    variant="contained"
+                    size="small"
+                    sx={{
+                      minWidth: "57px",
+                      height: "32px",
                       backgroundColor: `${
                         item.isCompleted ? "#C1C1C1" : "#008CFF"
                       }`,
                       boxShadow: "none",
-                    },
-                  }}
-                >
-                  完了
-                </Button>
-              </StyledButtonWrapper>
-            </StyledListItem>
-            <Divider component="li" />
-          </>
-        ))}
-      </StyledList>
-    </StyledContainer>
-  );
-}
-
-export default App;
-
-function App() {
-  return (
-    <div>
-      <p>Todoアプリを利用してGitの練習をしていきます。</p>
-    </div>
-  );
+                      "&:hover": {
+                        backgroundColor: `${
+                          item.isCompleted ? "#C1C1C1" : "#008CFF"
+                        }`,
+                        boxShadow: "none",
+                      },
+                    }}
+                  >
+                    完了
+                  </Button>
+                </StyledButtonWrapper>
+              </StyledListItem>
+              <Divider component="li" />
+            </>
+          ))}
+        </StyledList>
+      </StyledContainer>
+    );
+  }
 }
 
 export default App;
